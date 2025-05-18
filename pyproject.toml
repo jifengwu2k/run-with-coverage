@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "run-with-coverage"
+version = "0.1.0a3"
+description = "Run a Python script with coverage tracking and allow the user to specify the coverage data file."
+readme = "README.md"
+requires-python = ">=2"
+license = "MIT"
+authors = [
+  { name="Jifeng Wu", email="jifengwu2k@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 2",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "coverage",
+    "ctypes-unicode-proclaunch",
+    "posix-or-nt",
+    "read-unicode-environment-variables-dictionary",
+    "textcompat",
+    "typing; python_version < '3.5'"
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/jifengwu2k/run-with-coverage"
+"Bug Tracker" = "https://github.com/jifengwu2k/run-with-coverage/issues"

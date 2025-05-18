@@ -1,0 +1,6 @@
+coverage
+ctypes-unicode-proclaunch
+posix-or-nt
+read-unicode-environment-variables-dictionary
+textcompat
+typing; python_version < '3.5'
