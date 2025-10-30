@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "run-with-coverage"
-version = "0.1.0a3"
+version = "0.1.0a6"
 description = "Run a Python script with coverage tracking and allow the user to specify the coverage data file."
 readme = "README.md"
 requires-python = ">=2"

@@ -8,7 +8,7 @@ Run a Python script with coverage tracking, allowing the user to specify the cov
 - ✅ **Safe `.coverage` writing**, even when filenames contain spaces or non-UTF-8 characters
 - ✅ **Temp file management compatible with SQLite's UTF-8-only file requirements**
 
-> Fun Fact: The basic Unix implementation took 1 day. Windows compatibility (including the `posix-or-nt`, `proclaunch`, `strcompat` libraries) took 14. You're welcome.
+> Fun Fact: The basic Unix implementation took 1 day. Windows compatibility took 14. You're welcome.
 
 ## Why This Exists
 
@@ -26,12 +26,13 @@ These assumptions **break** in:
 
 ## Usage
 
-```bash
-python -m run_with_coverage [-c <coverage_file>] [-v] -- <script_to_run> [args...]
+```
+python -m run_with_coverage [-c <coverage_file>] [-v] [-L] -- <script_to_run> [args...]
 ```
 
 - `-c`: Coverage output file (default: `.coverage`)
 - `-v`: Enable verbose logging
+- `-L`: Measure library code
 - `--`: Required delimiter to separate runner options from the script being tested
 
 ## Example: Running on Windows with Non-ASCII Paths
