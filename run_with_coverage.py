@@ -25,15 +25,10 @@ else:
     TEMP_DIR = None
 
 
-def run_with_coverage(absolute_script_path, args, absolute_coverage_path):
-    # type: (Text, Sequence[Text], Text) -> None
+def run_with_coverage(absolute_script_path, args, absolute_coverage_path, pylib=False):
+    # type: (Text, Sequence[Text], Text, bool) -> None
     """
     Runs a Python script with coverage tracking.
-
-    Args:
-        absolute_script_path (Text): The absolute path to the Python script to run.
-        args (Sequence[Text]):  A sequence of arguments to pass to the script.
-        absolute_coverage_path (Text): The absolute path to the coverage data file.
     """
     logging.debug('Preparing to run script with coverage.')
     logging.debug('Script path: %s', absolute_script_path)
@@ -45,7 +40,10 @@ def run_with_coverage(absolute_script_path, args, absolute_coverage_path):
         raise RuntimeError('Cannot retrieve the absolute path of the executable binary for the Python interpreter.')
 
     # Use a list to build the command for clarity
-    arguments = [executable, u'-m', u'coverage', u'run', absolute_script_path]
+    arguments = [executable, u'-m', u'coverage', u'run']
+    if pylib:
+        arguments.append(u'--pylib')
+    arguments.append(absolute_script_path)
     arguments.extend(args)
 
     # Coverage collects execution data in a file called `.coverage`
@@ -117,6 +115,12 @@ def main():
         help='Enable verbose debug logging'
     )
 
+    main_parser.add_argument(
+        '-L', '--pylib',
+        action='store_true',
+        help='Measure code installed with the Python interpreter'
+    )
+
     # Sub parser for args after `--`
     sub_parser = argparse.ArgumentParser(
         add_help=False,
@@ -149,6 +153,7 @@ def main():
     main_args = main_parser.parse_args(main_argv)
     coverage_file = filesystem_str_to_text(os_path.abspath(main_args.coverage))
     verbose = main_args.verbose
+    pylib = main_args.pylib
 
     configure_logging(verbose)
 
@@ -157,7 +162,7 @@ def main():
     script = filesystem_str_to_text(os_path.abspath(sub_args.script))
     script_args = list(map(filesystem_str_to_text, sub_args.script_args))
 
-    sys.exit(run_with_coverage(script, script_args, coverage_file))
+    sys.exit(run_with_coverage(script, script_args, coverage_file, pylib))
 
 
 if __name__ == '__main__':
